@@ -29,8 +29,8 @@ RUN apt-get install ansible --no-install-recommends -y
 # JQ is a json parser, command line. Used for filtering the data for ansible-inventory
 RUN apt-get install jq --no-install-recommends -y
 
-# Git is needed to clone the repo that will be investigated, sudo to run as www-data
-RUN apt-get install git sudo --no-install-recommends -y
+# Git is needed to clone the repo that will be investigated
+RUN apt-get install git --no-install-recommends -y
 
 # Moreutils is needed for the sponge command we use in the script
 RUN apt-get install moreutils --no-install-recommends -y

@@ -14,7 +14,7 @@ RUN set -x && \
     apt-get upgrade -y && \ 
     apt-get install ansible --no-install-recommends -y && \ 
     apt-get install jq --no-install-recommends -y && \ 
-    apt-get install git sudo --no-install-recommends -y && \ 
+    apt-get install git --no-install-recommends -y && \ 
     apt-get install moreutils --no-install-recommends -y && \ 
     apt-get autoremove && \ 
     apt-get clean all && \ 
