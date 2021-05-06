@@ -3,11 +3,11 @@
 #	Yves Vindevogel (vindevoy)
 #	2021-02-16
 #
-#	CentOS 10 based image running NGINX that executes a bash script and returns the output of it on port 3112
+#	Debian based image running NGINX returns project information from an Ansible project
 #
 ###
  
-FROM vindevoy/debian10-nginx-lua-script:latest
+FROM vindevoy/debian-nginx-lua:latest
 
 LABEL maintainer="Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
