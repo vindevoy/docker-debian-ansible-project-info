@@ -1,4 +1,4 @@
-FROM vindevoy/debian10-nginx-lua-script:latest
+FROM vindevoy/debian-nginx-lua:latest
 
 LABEL maintainer="Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
