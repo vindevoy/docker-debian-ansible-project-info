@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /root/env.sh
+source /root/env.sh 
 
 HOSTS_FILE=hosts.json
 GROUPS_FILE=groups.json
