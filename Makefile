@@ -20,18 +20,10 @@
 # Note: the version of this image will reflect the version of CherryPy
 
 IMAGE_REPO=vindevoy
-IMAGE_NAME=ansible-project-info
-IMAGE_VERSION=1.0.0
+IMAGE_NAME=debian-ansible-project-info
+IMAGE_VERSION=2.0.0
 
 PORT_FORWARDING=-p80:80
-
-#
-# In the environment file, you must specify the following parameters (with their examples)
-#
-# GIT_URL=URL_INCLUDING_AUTHENTICATION
-# GIT_BRANCH=master
-# HOSTS_FILE=/var/opt/ansible/inventories/hosts
-#
 
 ENVIRONMENT=--env-file ansible.repo.secret 
 

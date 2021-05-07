@@ -1,0 +1,41 @@
+---
+
+all:    
+  hosts:
+    dev1.asynchrone.local:
+    dev2.asynchrone.local:
+
+    test1.asynchrone.local:
+    test2.asynchrone.local:
+
+    qa1.asynchrone.local:
+    qa2.asynchrone.local:
+
+    prod1.asynchrone.local:
+    prod2.asynchrone.local:
+    prod3.asynchrone.local:
+    prod4.asynchrone.local:
+
+
+  children:
+    dev:
+      hosts:
+        dev1.asynchrone.local:
+        dev2.asynchrone.local:
+
+    test:
+      hosts:
+        test1.asynchrone.local:
+        test2.asynchrone.local:
+
+    qa:
+      hosts:
+        qa1.asynchrone.local:
+        qa2.asynchrone.local:
+
+    prod:
+      hosts:
+        prod1.asynchrone.local:
+        prod2.asynchrone.local:
+        prod3.asynchrone.local:
+        prod4.asynchrone.local:

@@ -6,18 +6,20 @@
 #	Debian based image running NGINX returns project information from an Ansible project
 #
 ###
- 
-FROM vindevoy/debian-nginx-lua:latest
 
-LABEL maintainer="Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
-ENV GIT_URL=https://URL.git
-ENV GIT_BRANCH=master
-ENV HOSTS_FILE=/var/opt/ansible/site.yml
+FROM vindevoy/debian-openresty:latest
 
-# Copy is here for layer optimization
-COPY resources/startup.sh /tmp/startup.sh
-COPY resources/lua-server /tmp/lua-server 
+LABEL maintainer = "Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
+
+ENV GIT_PROTOCOL=https
+ENV GIT_URL=github.com/vindevoy/docker-debian-ansible-project-info.git  
+ENV GIT_ACCESS_TOKEN=ADD_YOUR_TOKEN_HERE
+ENV GIT_BRANCH=develop
+ENV INVENTORY_FILE=src/sample/site.yml
+
+# This automatically overwrites the existing files from the base image
+COPY resources/* /root/
 
 # Install extra software
 RUN apt-get update -y
@@ -35,24 +37,19 @@ RUN apt-get install git --no-install-recommends -y
 # Moreutils is needed for the sponge command we use in the script
 RUN apt-get install moreutils --no-install-recommends -y
 
+# Cleanup
 RUN apt-get autoremove
 RUN apt-get clean all
 
-# Remove original scripts (from vindevoy/debian10-nginx-lua-script:latest) and copy new ones
-RUN rm -f /etc/nginx/sites-available/lua-server
-RUN rm -f /etc/nginx/sites-enabled/lua-server
-RUN mv /tmp/lua-server /etc/nginx/sites-available/
-RUN ln -sf /etc/nginx/sites-available/lua-server /etc/nginx/sites-enabled/lua-server 
+# Make sure scripts are executable
+RUN chmod +x /root/*.sh 
 
-# Run nginx as root because of git login (startup.sh must be run by root because it starts nginx)
-# There should be a better way, maybe by executing git pull with sudo
-RUN sed -i "s/user www-data;/user root;/g" /etc/nginx/nginx.conf
+# Running this on default port 80
+EXPOSE 80
 
-# This script is replaced by startup.sh
-RUN rm -f /var/lua/lua.sh 
+#CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "/root/openresty.sh"]
 
-# The startup script will create the lua.sh file taking into account the ENV variables
-RUN mv /tmp/startup.sh /opt/lua/startup.sh 
-RUN chmod +x /opt/lua/startup.sh 
 
-CMD ["/bin/bash", "-c", "/opt/lua/startup.sh"]
+
+

@@ -1,13 +1,14 @@
-FROM vindevoy/debian-nginx-lua:latest
+FROM vindevoy/debian-openresty:latest
 
-LABEL maintainer="Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
+LABEL maintainer = "Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
-ENV GIT_URL=https://URL.git
-ENV GIT_BRANCH=master
-ENV HOSTS_FILE=/var/opt/ansible/site.yml
+ENV GIT_PROTOCOL=https
+ENV GIT_URL=github.com/vindevoy/docker-debian-ansible-project-info.git
+ENV GIT_ACCESS_TOKEN=ADD_YOUR_TOKEN_HERE
+ENV GIT_BRANCH=develop
+ENV INVENTORY_FILE=src/sample/site.yml
 
-COPY resources/startup.sh /tmp/startup.sh
-COPY resources/lua-server /tmp/lua-server
+COPY resources/* /root/
 
 RUN set -x && \ 
     apt-get update -y && \ 
@@ -18,13 +19,8 @@ RUN set -x && \
     apt-get install moreutils --no-install-recommends -y && \ 
     apt-get autoremove && \ 
     apt-get clean all && \ 
-    rm -f /etc/nginx/sites-available/lua-server && \ 
-    rm -f /etc/nginx/sites-enabled/lua-server && \ 
-    mv /tmp/lua-server /etc/nginx/sites-available/ && \ 
-    ln -sf /etc/nginx/sites-available/lua-server /etc/nginx/sites-enabled/lua-server && \ 
-    sed -i "s/user www-data;/user root;/g" /etc/nginx/nginx.conf && \ 
-    rm -f /var/lua/lua.sh && \ 
-    mv /tmp/startup.sh /opt/lua/startup.sh && \ 
-    chmod +x /opt/lua/startup.sh
+    chmod +x /root/*.sh
 
-CMD ["/bin/bash", "-c", "/opt/lua/startup.sh"]
+EXPOSE 80
+
+CMD ["/bin/bash", "-c", "/root/openresty.sh"]
