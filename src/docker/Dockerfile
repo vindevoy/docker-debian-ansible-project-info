@@ -13,8 +13,8 @@ FROM vindevoy/debian-openresty:latest
 LABEL maintainer = "Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
 ENV GIT_PROTOCOL=https
-ENV GIT_URL=github.com/vindevoy/docker-centos8-ansible-project-info.git  
-ENV GIT_ACCESS_TOKEN=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
+ENV GIT_URL=github.com/vindevoy/docker-debian-ansible-project-info.git  
+ENV GIT_ACCESS_TOKEN=ADD_YOUR_TOKEN_HERE
 ENV GIT_BRANCH=develop
 ENV INVENTORY_FILE=src/sample/site.yml
 
@@ -37,6 +37,7 @@ RUN apt-get install git --no-install-recommends -y
 # Moreutils is needed for the sponge command we use in the script
 RUN apt-get install moreutils --no-install-recommends -y
 
+# Cleanup
 RUN apt-get autoremove
 RUN apt-get clean all
 
@@ -46,8 +47,8 @@ RUN chmod +x /root/*.sh
 # Running this on default port 80
 EXPOSE 80
 
-CMD ["/bin/bash"]
-#CMD ["/bin/bash", "-c", "/root/openresty.sh"]
+#CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "/root/openresty.sh"]
 
 
 
