@@ -21,7 +21,7 @@
 
 IMAGE_REPO=vindevoy
 IMAGE_NAME=debian-ansible-project-info
-IMAGE_VERSION=2.0.0
+IMAGE_VERSION=2.0.1
 
 PORT_FORWARDING=-p80:80
 

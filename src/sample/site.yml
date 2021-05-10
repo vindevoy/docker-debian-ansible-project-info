@@ -33,6 +33,12 @@ all:
         qa1.asynchrone.local:
         qa2.asynchrone.local:
 
+    non_prod:
+      children:
+        dev:
+        test:
+        qa:
+        
     prod:
       hosts:
         prod1.asynchrone.local:
