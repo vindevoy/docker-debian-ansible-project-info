@@ -8,7 +8,7 @@
 ###
 
 
-FROM vindevoy/debian-openresty:latest
+FROM vindevoy/debian-openresty:1.19.9.1-1-0
 
 LABEL maintainer = "Yves Vindevogel (vindevoy) - yves.vindevogel@asynchrone.com"
 
